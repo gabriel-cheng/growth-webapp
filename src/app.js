@@ -1,5 +1,8 @@
 import express from "express";
 import router from "./router/index.router.js";
+import envValidation from "./helpers/env_validate.helper.js";
+
+envValidation();
 
 const app = express();
 
