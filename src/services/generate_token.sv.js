@@ -1,7 +1,7 @@
 import EnvEnum from "../helpers/env.enum.js";
 
-export async function generateToken(email, password) {
-    const url = process.env[EnvEnum.API_BASE_URL];
+export async function generateTokenSv(email, password) {
+    const url = process.env[EnvEnum.API_TOKEN_URL];
     const appToken = process.env[EnvEnum.APP_TOKEN];
 
     try {

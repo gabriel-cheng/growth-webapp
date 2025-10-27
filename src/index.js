@@ -5,7 +5,7 @@ function main() {
     const port = 5000 || process.env[EnvEnum.APP_PORT];
 
     app.listen(port, () => {
-        console.log(`Server os running on port ${port}!`);
+        console.log(`Server is running on port ${port}!`);
     });
 }
 
