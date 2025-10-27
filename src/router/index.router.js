@@ -5,5 +5,6 @@ const router = Router();
 const indexController = new IndexController();
 
 router.get("/", indexController.index);
+router.get("/generate_token", indexController.generateTokenEndpoint);
 
 export default router;

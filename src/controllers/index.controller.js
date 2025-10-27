@@ -1,4 +1,5 @@
 import EnvEnum from "../helpers/env.enum.js";
+import { generateToken } from "../services/generate_token.sv.js";
 
 class IndexController {
     constructor() {
@@ -11,8 +12,10 @@ class IndexController {
         );
     }
 
-    teste() {
-        
+    async generateTokenEndpoint(req, res) {
+        const token = await generateToken();
+
+        return res.json(token)
     }
 }
 
