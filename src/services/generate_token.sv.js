@@ -1,10 +1,8 @@
 import EnvEnum from "../helpers/env.enum.js";
 
-export async function generateToken() {
+export async function generateToken(email, password) {
     const url = process.env[EnvEnum.API_BASE_URL];
     const appToken = process.env[EnvEnum.APP_TOKEN];
-    const email = process.env[EnvEnum.USER_EMAIL];
-    const pass = process.env[EnvEnum.USER_PASS];
 
     try {
         const response = await fetch(url, {
@@ -15,20 +13,34 @@ export async function generateToken() {
             },
             "body": JSON.stringify({
                 "email": email,
-                "senha": pass,
+                "senha": password,
                 "tipo": "senha",
                 "principal": false
             })
         })
-        .then(e => e.json());
+
+        const responseData = await response.json();
+
+        if(response.status == 200) {
+            return {
+                "accessToken": responseData.token.accessToken,
+                "refreshToken": responseData.token.refreshToken,
+                "response_status": response.status
+            }
+        }
 
         return {
-            "accessToken": response.token.accessToken
-        }
+            "ok": false,
+            "error_message": responseData.error,
+            "response_status": response.status
+        };
     } catch(error) {
-        console.log(`Generate token error => ${error}`);
+        console.log(`Generate token error ====> ${error}`);
 
-        return {};
+        return {
+            "ok": false,
+            "error_message": "Internal server error, please try again later!",
+            "response_status": 500
+        };
     }
-
 }
